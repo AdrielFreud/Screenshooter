@@ -19,7 +19,6 @@ def main():
 	Button(root, text="Shoot", fg="black", bg="white", command=screenshot).place(x=45, y=100)
 	Button(root, text="Config", fg="black", bg="white", command=config).place(x=115, y=100)
 
-
 	root["bg"] = "white"
 	root.geometry("230x150")
 	root.mainloop()
@@ -30,8 +29,10 @@ def generate_string():
 	return nome
 
 def save_config():
-	global data
 	data = (int(X1.get()), int(X2.get()), int(Y1.get()), int(Y2.get()))
+	img = Image.grab(bbox=data)
+	img.save(generate_string())
+	img.close()
 	win.destroy()
 
 def config():
@@ -67,13 +68,12 @@ def config():
 	win.mainloop()
 
 def screenshot():
-	global img 
-	img = Image.grab(bbox=data)
+	img = Image.grab()
+
 	if(name_Entry.get()):
 		img.save(name_Entry.get())
 	else:
 		img.save(generate_string())
-
 	img.close()
 
 main()
