@@ -6,14 +6,13 @@ import random
 
 def main():
 	global root
-
 	root = Tk()
 	root.title("Screenshooter")
 
 	Label(root, text="Nome: ", fg="black", bg="white", font="Arial 11").place(x=5, y=25)
 	
 	global name_Entry
-	name_Entry = Entry(root, fg="black", bg="white")
+	name_Entry = Entry(root, fg="black", bg="white", width=15)
 	name_Entry.place(x=60, y=30)
 
 	Button(root, text="Shoot", fg="black", bg="white", command=screenshot).place(x=45, y=100)
@@ -25,43 +24,33 @@ def main():
 
 
 def generate_string():
-	nome = "screnn_%s.png"%random.randint(1, 10000)
-	return nome
-
-def save_config():
-	data = (int(X1.get()), int(X2.get()), int(Y1.get()), int(Y2.get()))
-	root.destroy()
-	img = Image.grab(bbox=data)
-	img.save(generate_string())
-	img.close()
-	sleep(0.8)
-	win.destroy()
+	return "screnn_%s.png"%random.randint(1, 10000)
 
 def config():
-	global win
-
 	win = Tk()
 	win.title("Config")
 
 	Label(win, text="X1", fg="black", bg="white", font="Arial 11").place(x=5,y=20)
-	global X1
 	X1 = Entry(win, fg="black", bg="white", width=7)
 	X1.place(x=50, y=20)
 
 	Label(win, text="X2", fg="black", bg="white", font="Arial 11").place(x=5,y=40)
-	global X2
 	X2 = Entry(win, fg="black", bg="white", width=7)
 	X2.place(x=50, y=40)
 
 	Label(win, text="Y1", fg="black", bg="white", font="Arial 11").place(x=5,y=60)
-	global Y1
 	Y1 = Entry(win, fg="black", bg="white", width=7)
 	Y1.place(x=50, y=60)
 
 	Label(win, text="Y2", fg="black", bg="white", font="Arial 11").place(x=5,y=80)
-	global Y2
 	Y2 = Entry(win, fg="black", bg="white", width=7)
 	Y2.place(x=50, y=80)
+
+	def save_config():
+		data = (int(X1.get()), int(X2.get()), int(Y1.get()), int(Y2.get()))
+		img = Image.grab(bbox=data)
+		img.save(generate_string())
+		img.close()
 
 	Button(win, text="SAVE", fg="black", bg="white", font="Arial 11", command=save_config).place(x=45, y=130)
 
